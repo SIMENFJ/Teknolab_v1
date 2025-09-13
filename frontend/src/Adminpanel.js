@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserReservationDropdown from './UserReservationDropdown';
+// Use environment variable or fallback for backend URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
 
 function Adminpanel({ user }) {
   const [users, setUsers] = useState([]);
@@ -7,17 +9,17 @@ function Adminpanel({ user }) {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch(`/admin/users?adminEmail=${user.email}`)
+    fetch(`${BACKEND_URL}/admin/users?adminEmail=${user.email}`)
       .then(res => res.json())
       .then(setUsers);
-    fetch(`/admin/reservations?adminEmail=${user.email}`)
+    fetch(`${BACKEND_URL}/admin/reservations?adminEmail=${user.email}`)
       .then(res => res.json())
       .then(setReservations);
   }, []);
 
   const removeReservation = async (date, slot) => {
     setMessage('');
-    const res = await fetch('/admin/remove-reservation', {
+  const res = await fetch(`${BACKEND_URL}/admin/remove-reservation`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail: user.email, date, slot })
@@ -33,7 +35,7 @@ function Adminpanel({ user }) {
 
   const removeAccount = async (email) => {
     setMessage('');
-    const res = await fetch('/admin/remove-account', {
+  const res = await fetch(`${BACKEND_URL}/admin/remove-account`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail: user.email, userEmail: email })
@@ -51,7 +53,7 @@ function Adminpanel({ user }) {
     const newPassword = prompt('Nytt passord for ' + email + ':');
     if (!newPassword) return;
     setMessage('');
-    const res = await fetch('/admin/reset-password', {
+  const res = await fetch(`${BACKEND_URL}/admin/reset-password`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail: user.email, userEmail: email, newPassword })
@@ -66,7 +68,7 @@ function Adminpanel({ user }) {
 
   const promoteAdmin = async (email) => {
     setMessage('');
-    const res = await fetch('/admin/promote', {
+  const res = await fetch(`${BACKEND_URL}/admin/promote`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail: user.email, userEmail: email })

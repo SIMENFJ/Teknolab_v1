@@ -31,7 +31,8 @@ function Reservation({ user }) {
   useEffect(() => {
     if (selectedDate) {
       setLoading(true);
-      fetch(`/reservations/${selectedDate}`)
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
+      fetch(`${BACKEND_URL}/reservations/${selectedDate}`)
         .then(res => res.json())
         .then(data => {
           setReservations(data);
@@ -43,7 +44,8 @@ function Reservation({ user }) {
   const handleReserve = async (slot) => {
     setMessage('');
     setLoading(true);
-    const res = await fetch('/reserve', {
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
+  const res = await fetch(`${BACKEND_URL}/reserve`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

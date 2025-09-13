@@ -11,7 +11,8 @@ function UserReservationDropdown({ users, reservations, removeReservation, admin
     if (!selectedEmail || !adminEmail) return;
     setLoading(true);
     setMessage('');
-    const res = await fetch('/admin/remove-all-reservations', {
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
+  const res = await fetch(`${BACKEND_URL}/admin/remove-all-reservations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail, userEmail: selectedEmail })

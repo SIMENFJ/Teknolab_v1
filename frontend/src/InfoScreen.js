@@ -7,7 +7,8 @@ function InfoScreen() {
   const fetchReservations = () => {
     setLoading(true);
     const today = new Date().toISOString().split('T')[0];
-    fetch(`/reservations/${today}`)
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
+    fetch(`${BACKEND_URL}/reservations/${today}`)
       .then(res => res.json())
       .then(data => {
         setReservations(data);

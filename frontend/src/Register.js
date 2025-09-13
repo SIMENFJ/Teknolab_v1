@@ -13,7 +13,8 @@ function Register() {
     setError('');
     setMessage('');
     try {
-      const res = await fetch('/register', {
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://your-backend.onrender.com';
+  const res = await fetch(`${BACKEND_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
