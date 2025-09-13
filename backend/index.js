@@ -13,10 +13,10 @@ const PORT = 3001;
 
 // Helper functions
 function readJson(file) {
-  return JSON.parse(fs.readFileSync(file, 'utf8'));
+  return JSON.parse(fs.readFileSync(path.join(__dirname, file), 'utf8'));
 }
 function writeJson(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+  fs.writeFileSync(path.join(__dirname, file), JSON.stringify(data, null, 2));
 }
 function isAdmin(email) {
   const users = readJson('users.json');
