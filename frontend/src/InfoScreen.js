@@ -7,7 +7,7 @@ function InfoScreen() {
   const fetchReservations = () => {
     setLoading(true);
     const today = new Date().toISOString().split('T')[0];
-    fetch(`http://localhost:3001/reservations/${today}`)
+    fetch(`/reservations/${today}`)
       .then(res => res.json())
       .then(data => {
         setReservations(data);

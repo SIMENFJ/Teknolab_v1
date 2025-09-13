@@ -11,7 +11,7 @@ function UserReservationDropdown({ users, reservations, removeReservation, admin
     if (!selectedEmail || !adminEmail) return;
     setLoading(true);
     setMessage('');
-    const res = await fetch('http://localhost:3001/admin/remove-all-reservations', {
+    const res = await fetch('/admin/remove-all-reservations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminEmail, userEmail: selectedEmail })

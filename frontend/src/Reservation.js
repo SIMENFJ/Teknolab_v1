@@ -31,7 +31,7 @@ function Reservation({ user }) {
   useEffect(() => {
     if (selectedDate) {
       setLoading(true);
-      fetch(`http://localhost:3001/reservations/${selectedDate}`)
+      fetch(`/reservations/${selectedDate}`)
         .then(res => res.json())
         .then(data => {
           setReservations(data);
@@ -43,7 +43,7 @@ function Reservation({ user }) {
   const handleReserve = async (slot) => {
     setMessage('');
     setLoading(true);
-    const res = await fetch('http://localhost:3001/reserve', {
+    const res = await fetch('/reserve', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
